@@ -115,6 +115,14 @@ func (a API) SendMessage(text string, chatID int64, opts *MessageOptions) (res A
 	return get[APIResponseMessage](a.base, "sendMessage", addValues(vals, opts))
 }
 
+func (a API) SendMessageWithUserName(text string, userName string, opts *MessageOptions) (res APIResponseMessage, err error) {
+	var vals = make(url.Values)
+
+	vals.Set("text", text)
+	vals.Set("chat_id", userName)
+	return get[APIResponseMessage](a.base, "sendMessage", addValues(vals, opts))
+}
+
 // ForwardMessage is used to forward messages of any kind.
 // Service messages can't be forwarded.
 func (a API) ForwardMessage(chatID, fromChatID int64, messageID int, opts *ForwardOptions) (res APIResponseMessage, err error) {
